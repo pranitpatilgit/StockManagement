@@ -2,6 +2,7 @@ package com.pranitpatil.controller;
 
 import com.pranitpatil.dto.ErrorResponse;
 import com.pranitpatil.exception.NotFoundException;
+import com.pranitpatil.exception.StockLockedException;
 import com.pranitpatil.exception.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,15 @@ public class GenericExceptionController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody
     ErrorResponse handleException(RuntimeException exception) {
+        logger.error(ERROR_RESP_TEXT, exception);
+
+        return new ErrorResponse(exception.getMessage());
+    }
+
+    @ExceptionHandler({StockLockedException.class})
+    @ResponseStatus(HttpStatus.LOCKED)
+    public @ResponseBody
+    ErrorResponse handleException(StockLockedException exception) {
         logger.error(ERROR_RESP_TEXT, exception);
 
         return new ErrorResponse(exception.getMessage());
