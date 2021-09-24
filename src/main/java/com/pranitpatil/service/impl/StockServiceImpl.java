@@ -86,8 +86,7 @@ public class StockServiceImpl implements StockService{
     private void checkStockIsLocked(Stock stockEntity) {
         long lockDuration = Duration.between(stockEntity.getLastModifiedAt(), LocalDateTime.now()).toSeconds();
         if(lockDuration < stockManagementProperties.getLockingInterval()){
-            throw new StockLockedException("Stock with id - " + stockEntity.getId() + " is locked till next " +
-                    lockDuration + " seconds.");
+            throw new StockLockedException("This stock is locked for updates.");
         }
     }
 }

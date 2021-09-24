@@ -58,7 +58,7 @@ public class StockLockingIT {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(stock)))
-                .andExpect(MockMvcResultMatchers.status().isInternalServerError())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("Locked"));
+                .andExpect(MockMvcResultMatchers.status().isLocked())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").value("This stock is locked for updates."));
     }
 }
