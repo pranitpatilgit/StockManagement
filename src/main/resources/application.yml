@@ -1,0 +1,21 @@
+server:
+  port: 8090
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+application:
+  lockingInterval: 300
+
+logging:
+  level:
+    com.pranitpatil : INFO
+    org.springframework.web : DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m - %X{requestID}%n"
