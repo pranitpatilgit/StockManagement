@@ -7,6 +7,8 @@ import com.pranitpatil.exception.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +28,19 @@ public class GenericExceptionController {
         logger.error(ERROR_RESP_TEXT, exception);
 
         return new ErrorResponse(exception.getMessage());
+    }
+
+    @ExceptionHandler({MethodArgumentNotValidException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public @ResponseBody
+    ErrorResponse handleException(MethodArgumentNotValidException exception) {
+        logger.error(ERROR_RESP_TEXT, exception);
+        StringBuilder builder = new StringBuilder();
+        for(ObjectError error : exception.getBindingResult().getAllErrors()){
+            builder.append(error.getDefaultMessage())
+                    .append(" | ");
+        }
+        return new ErrorResponse(builder.toString());
     }
 
     @ExceptionHandler({StockLockedException.class})

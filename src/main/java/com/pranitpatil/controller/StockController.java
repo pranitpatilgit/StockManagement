@@ -11,10 +11,14 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(path = "api/stocks", produces = MediaType.APPLICATION_JSON_VALUE)
+@Validated
 public class StockController {
 
     private StockService stockService;
@@ -45,7 +49,7 @@ public class StockController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Creates a new stock and returns it")
-    public StockDto createNewStock(@RequestBody StockDto stock) {
+    public StockDto createNewStock(@Valid @RequestBody StockDto stock) {
         return stockService.saveStock(stock);
     }
 

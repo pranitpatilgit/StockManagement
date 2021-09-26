@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.math.BigDecimal;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,7 +39,7 @@ public class StockControllerIT {
     public void givenStock_whenAddNewStock_thenNewStockIsCreated() throws Exception {
         StockDto stock = new StockDto();
         stock.setName("TEST");
-        stock.setPrice(123.45);
+        stock.setPrice(BigDecimal.valueOf(123.45));
 
         StockDto createdStock = objectMapper.readValue(mvc.perform(MockMvcRequestBuilders.post("/api/stocks")
                         .accept(MediaType.APPLICATION_JSON)
@@ -64,7 +66,7 @@ public class StockControllerIT {
                         .andExpect(MockMvcResultMatchers.status().isOk())
                         .andReturn().getResponse().getContentAsString(), StockDto.class);
 
-        stock.setPrice(159.46);
+        stock.setPrice(BigDecimal.valueOf(159.46));
 
         //Wait till lock expires
         Thread.sleep(10000);
