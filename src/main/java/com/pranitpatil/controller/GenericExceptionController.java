@@ -21,13 +21,18 @@ public class GenericExceptionController {
     private static final String ERROR_RESP_TEXT = "Sending error response - ";
 
 
-    @ExceptionHandler({NotFoundException.class, ValidationException.class})
+    @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public @ResponseBody
-    ErrorResponse handleException(RuntimeException exception) {
-        logger.error(ERROR_RESP_TEXT, exception);
+    ErrorResponse handleException(ValidationException exception) {
+        return getErrorResponse(exception);
+    }
 
-        return new ErrorResponse(exception.getMessage());
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public @ResponseBody
+    ErrorResponse handleException(NotFoundException exception) {
+        return getErrorResponse(exception);
     }
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
@@ -47,17 +52,18 @@ public class GenericExceptionController {
     @ResponseStatus(HttpStatus.LOCKED)
     public @ResponseBody
     ErrorResponse handleException(StockLockedException exception) {
-        logger.error(ERROR_RESP_TEXT, exception);
-
-        return new ErrorResponse(exception.getMessage());
+        return getErrorResponse(exception);
     }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody
     ErrorResponse handleException(Exception exception) {
-        logger.error(ERROR_RESP_TEXT, exception);
+        return getErrorResponse(exception);
+    }
 
+    private ErrorResponse getErrorResponse(Exception exception) {
+        logger.error(ERROR_RESP_TEXT, exception);
         return new ErrorResponse(exception.getMessage());
     }
 }

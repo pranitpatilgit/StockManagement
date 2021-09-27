@@ -80,7 +80,7 @@ Following endpoints can be used
         }
 
   Error Response
-  For invalid stock id the API will result in HTTP Status 400 with a valid error message.
+  For invalid stock id the API will result in HTTP Status 404 with a valid error message.
 
 - #### Add new stock
   Creates a new stock and returns it.

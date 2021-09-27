@@ -12,6 +12,8 @@ spring:
 
 application:
   lockingInterval: 300
+  title : Stock Management
+  version : 1.0
 
 logging:
   level:

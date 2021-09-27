@@ -100,6 +100,6 @@ public class StockControllerIT {
         mvc.perform(MockMvcRequestBuilders.get("/api/stocks/2")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 }
