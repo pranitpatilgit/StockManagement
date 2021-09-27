@@ -2,7 +2,7 @@ package com.pranitpatil.controller;
 
 import com.pranitpatil.dto.PagedResponse;
 import com.pranitpatil.dto.StockDto;
-import com.pranitpatil.service.impl.StockService;
+import com.pranitpatil.service.StockService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;

@@ -7,6 +7,7 @@ import com.pranitpatil.entity.Stock;
 import com.pranitpatil.exception.NotFoundException;
 import com.pranitpatil.exception.StockLockedException;
 import com.pranitpatil.repository.StockRepository;
+import com.pranitpatil.service.StockService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class StockServiceImpl implements StockService{
+public class StockServiceImpl implements StockService {
 
     private StockRepository stockRepository;
     private ModelMapper modelMapper;
