@@ -140,8 +140,7 @@ Following endpoints can be used
 
 - Filters on GetAllStocks API
 - User Interface
-- Transaction Management 
-- Docker File
+- Transaction Management
 
 
 ### **Author**
